@@ -1,0 +1,125 @@
+.BirdId__container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+  background-color: var(--body-light);
+  overflow: hidden;
+  overflow-y: auto;
+  gap: 10px;
+}
+
+.BirdId__sectionOne {
+  width: 100%;
+  background-color: var(--body-black);
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.BirdId__sectionOne h1 {
+  color: var(--text-color-white);
+  font-size: 22px;
+}
+
+.BirdId__sectionOne__buttonsContainer {
+  display: flex;
+  gap: 20px;
+}
+.BirdId__sectionOne__buttonsContainer button {
+  font-size: 18px;
+  font-weight: 600;
+  width: 200px;
+  height: 50px;
+  padding: 0 15px;
+  border: 2px solid var(--body-white);
+  background-color: var(--body-white);
+  cursor: pointer;
+  border-radius: 10px;
+  transition: 0.5s;
+}
+
+/* BirdId__sectionTwo */
+.BirdId__sectionTwo {
+  width: 100%;
+  padding: 20px;
+  border-bottom: 2px solid var(--body-grayLigth);
+}
+
+.BirdId__sectionTwo ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: start;
+  gap: 20px;
+}
+
+.BirdId__sectionTwo li {
+  width: 350px;
+  font-size: 18px;
+  font-weight: 600;
+  gap: 10px;
+  color: var(--text-color-gray);
+}
+.BirdId__sectionTwo b {
+  padding-right: 10px;
+}
+
+/* BirdId__sectionThree */
+.BirdId__sectionThree {
+  width: 100%;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  border-bottom: 2px solid var(--body-grayLigth);
+}
+
+.BirdId__sectionThree h2 {
+  font-size: 20px;
+}
+
+.BirdId__sectionThree__containerImages {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: start;
+  align-items: start;
+  gap: 10px;
+}
+
+.BirdId__sectionThree__containerImages img {
+  width: 300px;
+  height: 300px;
+  cursor: pointer;
+  object-fit: cover;
+}
+
+/* .BirdId__sectionFour */
+
+.BirdId__sectionFour {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.BirdId__sectionFour h2 {
+  font-size: 20px;
+}
+
+.BirdId__sectionFour__containerVideos {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: start;
+  align-items: start;
+  gap: 10px;
+}
+
+.BirdId__sectionFour__containerVideos video {
+  width: 330px;
+  height: 200px;
+  cursor: pointer;
+  object-fit: cover;
+}

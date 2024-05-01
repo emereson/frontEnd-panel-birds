@@ -1,0 +1,70 @@
+.Home__container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+  background-color: var(--body-light);
+  overflow: hidden;
+  overflow-y: auto;
+  padding: 30px;
+  gap: 30px;
+}
+
+.Home__sectionOne {
+  width: 100%;
+  display: flex;
+  gap: 5%;
+}
+
+.Home__sectionOne div {
+  width: 300px;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--body-grayBlue);
+  border-radius: 10px;
+  box-shadow: 0 0 10px 1px gray;
+  gap: 15px;
+}
+
+.Home__sectionOne span {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  font-size: 50px;
+  font-weight: 600;
+  color: var(--text-color-white);
+}
+
+.Home__sectionOne img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+}
+
+.Home__sectionOne p {
+  color: var(--text-color-white);
+  font-size: 25px;
+  font-weight: 600;
+}
+
+.Graph__container {
+  width: 100%;
+  padding: 30px;
+  padding-top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Graph__container canvas {
+  width: 100% !important;
+  height: 600px !important;
+  display: block;
+}

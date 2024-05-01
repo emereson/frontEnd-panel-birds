@@ -1,0 +1,83 @@
+.Admin__container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  gap: 30px;
+}
+
+.Admin__header {
+  width: 100%;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  background-color: var(--body-gray);
+  padding-left: 30px;
+}
+
+.Admin__header h1 {
+  color: var(--text-color-white);
+  font-size: 30px;
+}
+
+/* Admin__sectionsContainer */
+.Admin__sectionsContainer {
+  width: calc(100% - 60px);
+  background-color: var(--body-white);
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px 1px var(--body-ligth);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Admin__sectionOne */
+.Admin__sectionOne {
+  display: flex;
+  justify-content: space-between;
+}
+
+.Admin__sectionOne h2 {
+  font-size: 25px;
+  color: var(--text-color-gray);
+}
+
+.Admin__sectionOne button {
+  width: 250px;
+  height: 50px;
+  background-color: var(--body-white);
+  color: var(--text-color-gray);
+  font-size: 18px;
+  font-weight: 600;
+  border-radius: 10px;
+  border: 2px solid var(--body-grayBlue);
+  cursor: pointer;
+  transition: 0.5s ease;
+}
+
+.Admin__sectionOne button:hover {
+  background-color: var(--body-grayBlue);
+  color: var(--text-color-white);
+}
+
+/* Admin__table */
+.Admin__table {
+  width: 100%;
+  padding: 0 30px;
+  border-spacing: 0px;
+}
+
+.Admin__table th {
+  height: 50px;
+  background-color: var(--body-gray);
+  color: var(--text-color-white);
+}
+
+.Admin__table td {
+  height: 50px;
+  text-align: center;
+  background-color: var(--body-beigeLigth);
+  color: var(--text-color-gray);
+}
