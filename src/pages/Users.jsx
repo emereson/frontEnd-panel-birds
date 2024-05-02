@@ -3,6 +3,7 @@ import CreateUser from '../components/users/CreateUser';
 import axios from 'axios';
 import config from '../utils/getToken';
 import TableUser from '../components/users/TableUser';
+import DeleteUser from '../components/users/DeleteUser';
 
 const Users = () => {
   const [crud, setcrud] = useState();
@@ -22,6 +23,8 @@ const Users = () => {
       });
   }, [crud]);
 
+  console.log(allUsers);
+
   return (
     <div className="page__container">
       <section className="page___sectionOne">
@@ -33,9 +36,17 @@ const Users = () => {
         <button onClick={() => setcrud('create')}>Registrar Usuario</button>
       </section>
       <section className="page___sectionThree">
-        <TableUser allUsers={allUsers} setselectUser={setselectUser} />
+        <TableUser
+          allUsers={allUsers}
+          setselectUser={setselectUser}
+          setcrud={setcrud}
+        />
       </section>
       {crud === 'create' && <CreateUser setcrud={setcrud} />}
+
+      {crud === 'delete' && (
+        <DeleteUser setcrud={setcrud} selectUser={selectUser} />
+      )}
     </div>
   );
 };

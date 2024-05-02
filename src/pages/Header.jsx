@@ -7,9 +7,9 @@ const Header = () => {
     <header className="Header__container">
       <div className="Header__buttons">
         {viewMain ? (
-          <i class="bx bx-menu" onClick={() => setviewMain(false)}></i>
+          <i className="bx bx-menu" onClick={() => setviewMain(false)}></i>
         ) : (
-          <i class="bx bx-x" onClick={() => setviewMain(true)}></i>
+          <i className="bx bx-x" onClick={() => setviewMain(true)}></i>
         )}
       </div>
       <section className={`Header__sectionOne  ${viewMain ? 'closeMain' : ''}`}>

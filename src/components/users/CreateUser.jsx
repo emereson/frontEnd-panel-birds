@@ -36,6 +36,7 @@ const CreateUser = ({ setcrud }) => {
               {...register('name')}
               id="name"
               type="text"
+              required
               placeholder="Ingrese su nombre"
             />
           </div>{' '}
@@ -45,6 +46,7 @@ const CreateUser = ({ setcrud }) => {
               {...register('last_name')}
               id="last_name"
               type="text"
+              required
               placeholder="Ingrese sus apellidos"
             />
           </div>
@@ -54,6 +56,7 @@ const CreateUser = ({ setcrud }) => {
               {...register('email')}
               id="email"
               type="text"
+              required
               placeholder="Ingrese su correo"
             />
           </div>{' '}
@@ -63,6 +66,7 @@ const CreateUser = ({ setcrud }) => {
               {...register('password')}
               id="password"
               type="password"
+              required
               placeholder="Ingrese su contraseña"
             />
           </div>

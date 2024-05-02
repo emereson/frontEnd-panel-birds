@@ -23,7 +23,6 @@ const Vaccine = () => {
         console.log(err);
       });
   }, [search]);
-  console.log(allvacines);
 
   useEffect(() => {
     const url = `${import.meta.env.VITE_URL_API}/vaccine/${birdId}`;
@@ -36,7 +35,8 @@ const Vaccine = () => {
       .catch((err) => {
         console.log(err);
       });
-  }, [birdId]);
+  }, [birdId, crud]);
+
   return (
     <div className="page__container">
       <section className="page___sectionOne">

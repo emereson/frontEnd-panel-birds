@@ -1,6 +1,6 @@
 import React from 'react';
 
-const TableUser = ({ allUsers, setselectUser }) => {
+const TableUser = ({ allUsers, setselectUser, setcrud }) => {
   return (
     <div>
       <table className="table__container">
@@ -9,7 +9,7 @@ const TableUser = ({ allUsers, setselectUser }) => {
             <th>NOMBRE</th>
             <th>APELLIDOS</th>
             <th>CORREO</th>
-            <th></th>
+            <th>ELIMINAR</th>
           </tr>
         </thead>
         <tbody>
@@ -20,8 +20,12 @@ const TableUser = ({ allUsers, setselectUser }) => {
               <td>{user.email}</td>
               <td className="tablle__tdButton">
                 <div>
-                  <i className="bx bxs-edit-alt"></i>
-                  <i className="bx bxs-trash-alt"></i>
+                  <i
+                    className="bx bxs-trash-alt"
+                    onClick={() => {
+                      setcrud('delete'), setselectUser(user);
+                    }}
+                  ></i>
                 </div>
               </td>{' '}
             </tr>

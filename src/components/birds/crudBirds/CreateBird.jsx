@@ -156,7 +156,6 @@ const CreateBird = ({ setcrud }) => {
 
       const url = `${import.meta.env.VITE_URL_API}/birds`;
 
-      console.log(formData);
       axios
         .post(url, formData, config)
         .then((res) => {
