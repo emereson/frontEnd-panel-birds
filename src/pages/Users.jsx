@@ -23,8 +23,6 @@ const Users = () => {
       });
   }, [crud]);
 
-  console.log(allUsers);
-
   return (
     <div className="page__container">
       <section className="page___sectionOne">
