@@ -1,0 +1,38 @@
+.TableBirds_container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.TableBirds_paginations_container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 20px 0;
+}
+
+.TableBirds_paginations_container i {
+  font-size: 25px;
+  font-weight: 600;
+  color: var(--text-color-gray);
+  cursor: pointer;
+}
+
+.TableBirds_paginations_number {
+  display: flex;
+  gap: 10px;
+  font-size: 18px;
+  color: var(--text-color-gray);
+}
+
+.TableBirds_paginations_number p {
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.TableBirds_paginations_number p:hover {
+  color: var(--text-color-red);
+}

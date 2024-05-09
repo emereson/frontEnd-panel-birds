@@ -43,7 +43,7 @@ const CreateCrestType = ({ setCrud }) => {
           <button type="button" onClick={() => setCrud()}>
             CANCELAR
           </button>{' '}
-          <button type="submit"> CREAR</button>
+          <button type="submit"> REGISTRAR</button>
         </section>
       </form>
     </div>

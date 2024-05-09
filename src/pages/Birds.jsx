@@ -12,23 +12,24 @@ const Birds = () => {
       <section className="page___sectionOne">
         <h1>Tus Aves</h1>
       </section>
-      <section className="page___sectionTwo">
-        <form className="page___sectionTwo__form">
-          <div>
-            <label>Buscar Ave</label>
+      {crud === 'createBird' ? null : (
+        <section className="page___sectionTwo">
+          <form className="page___sectionTwo__form">
+            <div>
+              <label>Buscar Ave</label>
 
-            <input
-              id="search"
-              type="text"
-              placeholder="Buscar Ave Por Placa"
-              onChange={(e) => setsearch(e.target.value)}
-            />
-          </div>
-        </form>
-        <button onClick={() => setcrud('createBird')}>Registrar Ave</button>
-      </section>
+              <input
+                id="search"
+                type="text"
+                placeholder="Buscar Ave Por Placa"
+                onChange={(e) => setsearch(e.target.value)}
+              />
+            </div>
+          </form>
+          <button onClick={() => setcrud('createBird')}>Registrar Ave</button>
+        </section>
+      )}
       {crud === 'createBird' && <CreateBird setcrud={setcrud} />}
-
       <section className="page___sectionThree">
         <TableBirds search={search} crud={crud} />
       </section>

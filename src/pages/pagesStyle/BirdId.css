@@ -20,9 +20,17 @@
   align-items: center;
 }
 
-.BirdId__sectionOne h1 {
-  color: var(--text-color-white);
-  font-size: 22px;
+.BirdId__sectionOne_navigate {
+  display: flex;
+  align-items: center;
+  color: var(--body-white);
+  gap: 20px;
+  font-size: 25px;
+  cursor: pointer;
+}
+
+.BirdId__sectionOne_navigate i {
+  font-size: 35px;
 }
 
 .BirdId__sectionOne__buttonsContainer {
@@ -46,7 +54,16 @@
 .BirdId__sectionTwo {
   width: 100%;
   padding: 20px;
+  padding-top: 0;
   border-bottom: 2px solid var(--body-grayLigth);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.BirdId__sectionTwo h1 {
+  color: var(--text-color-gray);
+  font-size: 30px;
 }
 
 .BirdId__sectionTwo ul {
@@ -89,6 +106,25 @@
   gap: 10px;
 }
 
+.BirdId__sectionThree__containerImages div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.BirdId__sectionThree__containerImages button {
+  width: 150px;
+  height: 40px;
+  background-color: var(--body-red);
+  color: var(--text-color-white);
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
 .BirdId__sectionThree__containerImages img {
   width: 300px;
   height: 300px;
@@ -99,14 +135,40 @@
 /* .BirdId__sectionFour */
 
 .BirdId__sectionFour {
+  width: 100%;
   padding: 20px;
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
-.BirdId__sectionFour h2 {
+.BirdId__sectionFour_article {
+  width: 100%;
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.BirdId__sectionFour_article h2 {
   font-size: 20px;
+}
+
+.BirdId__sectionFour_article button {
+  font-size: 16px;
+  font-weight: 600;
+  width: 200px;
+  height: 50px;
+  padding: 0 15px;
+  background-color: var(--body-white);
+  border: 2px solid var(--body-darkBlue);
+  cursor: pointer;
+  border-radius: 10px;
+  transition: 0.5s;
+}
+
+.BirdId__sectionFour_article button:hover {
+  background-color: var(--body-darkBlue);
+  color: var(--text-color-white);
 }
 
 .BirdId__sectionFour__containerVideos {
@@ -115,6 +177,25 @@
   justify-content: start;
   align-items: start;
   gap: 10px;
+}
+
+.BirdId__sectionFour__containerVideos div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.BirdId__sectionFour__containerVideos button {
+  width: 150px;
+  height: 40px;
+  background-color: var(--body-red);
+  color: var(--text-color-white);
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 10px;
+  cursor: pointer;
 }
 
 .BirdId__sectionFour__containerVideos video {

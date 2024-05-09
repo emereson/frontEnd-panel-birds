@@ -21,7 +21,7 @@ import RegisterBirths from './pages/RegisterBirths';
 function App() {
   const userDataJSON = localStorage.getItem('userData');
   const userData = JSON.parse(userDataJSON);
-  console.log(userData);
+
   return (
     <>
       <ToastContainer />

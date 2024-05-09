@@ -1,15 +1,23 @@
 import axios from 'axios';
 import React, { useEffect } from 'react';
 import { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import config from '../utils/getToken';
 import './pagesStyle/BirdId.css';
 import DeleteBirdId from '../components/birdId/DeleteBirdId';
+import UpdateBird from '../components/birdId/UpdateBird';
+import DeleteImage from '../components/birdId/DeleteImage';
+import CreateImage from '../components/birdId/CreateImage';
+import CreateVideo from '../components/birdId/CreateVideo';
+import DeleteVideo from '../components/birdId/DeleteVideo';
 
 const BirdId = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [dataBird, setdataBird] = useState();
   const [crud, setcrud] = useState();
+  const [selectImage, setSelectImage] = useState();
+  const [selectVideo, setselectVideo] = useState();
 
   useEffect(() => {
     const url = `${import.meta.env.VITE_URL_API}/birds/${id}`;
@@ -27,13 +35,21 @@ const BirdId = () => {
   return (
     <div className="BirdId__container">
       <section className="BirdId__sectionOne">
-        <h1>Datos de tu Ave</h1>
+        <button
+          className="BirdId__sectionOne_navigate"
+          onClick={() => navigate('/birds')}
+        >
+          <i class="bx bx-arrow-back"></i>
+          Atras
+        </button>
         <div className="BirdId__sectionOne__buttonsContainer">
-          <button onClick={() => setcrud('delete')}>Eliminar Ave</button>
+          <button onClick={() => setcrud('update')}>Editar</button>
+          <button onClick={() => setcrud('delete')}>Eliminar</button>
         </div>
       </section>
 
       <section className="BirdId__sectionTwo">
+        <h1>Datos de tu Ave</h1>
         <ul>
           <li>
             <b>Placa:</b> {dataBird?.bird?.plate_number}
@@ -64,6 +80,10 @@ const BirdId = () => {
             <b>Edad:</b> {dataBird?.bird?.birthdate}
           </li>
           <li>
+            <b>Coloe del ave: </b>
+            {dataBird?.bird?.bird_color.name}
+          </li>
+          <li>
             <b>Estado del ave: </b>
             {dataBird?.bird?.status}
           </li>
@@ -78,38 +98,83 @@ const BirdId = () => {
       </section>
 
       <section className="BirdId__sectionThree">
-        <h2>Imagenes del ave</h2>
+        <article className="BirdId__sectionFour_article">
+          <h2>Imagenes del ave</h2>
+          <button onClick={() => setcrud('createImage')}>Agregar Imagen</button>
+        </article>
         <div className="BirdId__sectionThree__containerImages">
           {dataBird?.bird?.bird_image.map((image) => (
-            <img
-              key={image.id}
-              src={`${import.meta.env.VITE_URL_IMAGE}/${image.link_image}`}
-              alt=""
-            />
+            <div key={image.id}>
+              <button
+                onClick={() => {
+                  setcrud('deleteImage'), setSelectImage(image);
+                }}
+              >
+                Eliminar Imagen
+              </button>
+              <img
+                src={`${import.meta.env.VITE_URL_IMAGE}/${image.link_image}`}
+                alt=""
+              />
+            </div>
           ))}
         </div>
       </section>
       <section className="BirdId__sectionFour">
-        <h2>Videos del ave</h2>
-        <div className="BirdId__sectionFour__containerVideos">
+        <article className="BirdId__sectionFour_article">
+          <h2>Videos del ave</h2>
+          <button onClick={() => setcrud('createVideo')}>Agregar Video</button>
+        </article>{' '}
+        <div className=" BirdId__sectionFour__containerVideos">
           {dataBird?.bird?.bird_videos &&
           dataBird?.bird?.bird_videos.length === 0 ? (
             <p>NO HAY VIDEOS DEL AVE</p>
           ) : (
             dataBird?.bird?.bird_videos.map((video) => (
-              <video controls key={video.id}>
-                <source
-                  src={`${import.meta.env.VITE_URL_IMAGE}/${video.link_video}`}
-                  type="video/mp4"
-                />
-                Tu navegador no soporta el elemento de video.
-              </video>
+              <div key={video.id}>
+                <button
+                  onClick={() => {
+                    setcrud('deleteVideo'), setselectVideo(video);
+                  }}
+                >
+                  Eliminar Video
+                </button>
+                <video controls key={video.id}>
+                  <source
+                    src={`${import.meta.env.VITE_URL_IMAGE}/${
+                      video.link_video
+                    }`}
+                    type="video/mp4"
+                  />
+                  Tu navegador no soporta el elemento de video.
+                </video>
+              </div>
             ))
           )}
         </div>
       </section>
       {crud === 'delete' && (
         <DeleteBirdId dataBird={dataBird.bird} setcrud={setcrud} />
+      )}
+      {crud === 'update' && (
+        <UpdateBird dataBird={dataBird} setcrud={setcrud} />
+      )}
+      {crud === 'deleteImage' && (
+        <DeleteImage selectImage={selectImage} setcrud={setcrud} />
+      )}
+
+      {crud === 'createImage' && (
+        <CreateImage dataBird={dataBird.bird} setcrud={setcrud} />
+      )}
+
+      {/* video */}
+
+      {crud === 'deleteVideo' && (
+        <DeleteVideo selectVideo={selectVideo} setcrud={setcrud} />
+      )}
+
+      {crud === 'createVideo' && (
+        <CreateVideo dataBird={dataBird.bird} setcrud={setcrud} />
       )}
     </div>
   );

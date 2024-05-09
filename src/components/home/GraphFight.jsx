@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import Chart from 'chart.js/auto';
 
-const Graph = ({ allBirds }) => {
+const GraphFight = ({ allFight }) => {
   const chartRef = useRef(null);
   const chartInstance = useRef(null);
 
@@ -42,8 +42,8 @@ const Graph = ({ allBirds }) => {
         ],
         datasets: [
           {
-            label: 'Aves registradas por mes',
-            data: generateDataByMonth(allBirds),
+            label: 'Peleas de aves por mes',
+            data: generateDataByMonth(allFight),
             borderColor: 'rgb(75, 192, 192)',
             tension: 0.2,
           },
@@ -56,7 +56,7 @@ const Graph = ({ allBirds }) => {
         chartInstance.current.destroy();
       }
     };
-  }, [allBirds]);
+  }, [allFight]);
   return (
     <section className="Graph__container">
       <canvas ref={chartRef}></canvas>
@@ -64,4 +64,4 @@ const Graph = ({ allBirds }) => {
   );
 };
 
-export default Graph;
+export default GraphFight;

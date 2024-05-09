@@ -2,15 +2,12 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
-import config from '../../../utils/getToken';
-import Loading from '../../../hooks/Loading';
+import Loading from '../../hooks/Loading';
+import config from '../../utils/getToken';
 
-const CreateBird = ({ setcrud }) => {
+const UpdateBird = ({ setcrud, dataBird }) => {
   const { register, handleSubmit, reset } = useForm();
   const [loading, setLoading] = useState(false);
-  const [selectedFiles, setSelectedFiles] = useState([]);
-  const [selectedVideos, setSelectedVideos] = useState([]);
-
   const [allColorsBird, setallColorsBird] = useState();
   const [allCrestTypes, setallCrestTypes] = useState();
   const [allLines, setallLines] = useState();
@@ -129,83 +126,34 @@ const CreateBird = ({ setcrud }) => {
   }, []);
 
   const submit = (data) => {
-    setLoading(true);
-    const formData = new FormData();
-    formData.append('plate_color_id', Number(data.plate_color_id));
-    formData.append('plate_number', data.plate_number);
-    formData.append('sex', data.sex);
-    formData.append('father_bird_id', data.father_bird_id);
-    formData.append('mother_bird_id', data.mother_bird_id);
-    formData.append('birthdate', data.birthdate);
-    formData.append('bird_color', data.bird_color);
-    formData.append('crest_type', data.crest_type);
-    formData.append('line', data.line);
-    formData.append('weight', data.weight);
-    formData.append('status', data.status);
-    formData.append('origin', data.origin);
-    formData.append('observations', data.observations);
+    const url = `${import.meta.env.VITE_URL_API}/birds/${dataBird.bird.id}`;
 
-    if (selectedFiles.length > 0) {
-      selectedFiles.forEach((file, index) => {
-        formData.append(`link_image[]`, file);
+    axios
+      .patch(url, data, config)
+      .then((res) => {
+        setLoading(false);
+
+        reset();
+        setcrud('');
+        toast.success('Los datos del ave se actualizaron correctamente');
+      })
+      .catch((err) => {
+        console.log(err);
+        setcrud('');
+
+        setLoading(false);
+        reset();
+        toast.error(
+          'Hubo un error al editar el ave, por favor verifique bien los datos'
+        );
       });
-
-      selectedVideos.forEach((file, index) => {
-        formData.append(`link_video[]`, file);
-      });
-
-      const url = `${import.meta.env.VITE_URL_API}/birds`;
-
-      axios
-        .post(url, formData, config)
-        .then((res) => {
-          setLoading(false);
-          setSelectedFiles([]);
-          setSelectedVideos([]);
-          reset();
-          setcrud('');
-          toast.success('El ave se registró correctamente');
-        })
-        .catch((err) => {
-          console.log(err);
-          setcrud('');
-          setSelectedFiles([]);
-          setSelectedVideos([]);
-          setLoading(false);
-          reset();
-          toast.error(
-            'Hubo un error al crear el ave, por favor verifique bien los datos'
-          );
-        });
-    }
   };
 
-  const handleFileChange = (e) => {
-    const files = Array.from(e.target.files);
-    const imageFiles = files.filter((file) => file.type.startsWith('image/'));
-    setSelectedFiles(imageFiles);
-  };
-
-  const handleOnClickImg = () => {
-    document.getElementById('linkImg').click();
-  };
-
-  console.log(selectedVideos);
-  const handleFileVideoChange = (e) => {
-    const files = Array.from(e.target.files);
-    const imageFiles = files.filter((file) => file.type.startsWith('video/'));
-    setSelectedVideos(imageFiles);
-  };
-
-  const handleOnClickVideo = () => {
-    document.getElementById('linkVideo').click();
-  };
-
-  console.log(selectedFiles);
+  console.log(JSON.parse(dataBird?.bird.bird_color));
   return (
-    <div className="crud__container">
+    <div className="crudPop__container">
       {loading && <Loading />}
-      <form className="crud__formContainer" onSubmit={handleSubmit(submit)}>
+      <form className="crudPop__formContainer" onSubmit={handleSubmit(submit)}>
         <h2>INGRESE LOS DATOS DEL AVE</h2>
         <section className="crudForm__sectionOne">
           <div className="crudForm__sectionOne__div">
@@ -216,7 +164,14 @@ const CreateBird = ({ setcrud }) => {
               {...register('plate_color_id')}
               required
             >
-              <option value={null}></option>
+              <option
+                value={dataBird?.bird.plate_color.id}
+                selected
+                disabled
+                hidden
+              >
+                {dataBird?.bird.plate_color.color}
+              </option>{' '}
               {allPlateColors?.map((plateColor) => (
                 <option
                   key={plateColor.id}
@@ -234,13 +189,16 @@ const CreateBird = ({ setcrud }) => {
               {...register('plate_number')}
               id="plate_number"
               type="text"
+              defaultValue={dataBird?.bird.plate_number}
               required
             />
           </div>
           <div className="crudForm__sectionOne__div">
             <label htmlFor="sex">SEXO DEL AVE</label>
             <select name="sex" id="sex" {...register('sex')} required>
-              <option value={null}></option>
+              <option value={dataBird?.bird.sex} selected disabled hidden>
+                {dataBird?.bird.sex}
+              </option>
               <option value="macho">macho</option>
               <option value="hembra">hembra</option>
             </select>{' '}
@@ -251,7 +209,7 @@ const CreateBird = ({ setcrud }) => {
               id="father"
               onChange={(e) => setsearch(e.target.value)}
               type="text"
-              placeholder="Numero de Placa"
+              defaultValue={dataBird?.father_bird?.plate_number}
             />
 
             <div>
@@ -262,12 +220,14 @@ const CreateBird = ({ setcrud }) => {
                 {...register('father_bird_id')}
                 required
               >
-                {' '}
                 <option
-                  value="0"
-                  style={{ backgroundColor: 'red', color: 'white' }}
+                  value={dataBird?.father_bird?.id}
+                  selected
+                  disabled
+                  hidden
                 >
-                  No Tiene Padre
+                  {dataBird?.father_bird?.plate_number}, placa:{' '}
+                  {dataBird?.father_bird?.plate_color.color}
                 </option>
                 {father?.map((bird) => (
                   <option key={bird.id} value={bird.id}>
@@ -284,7 +244,7 @@ const CreateBird = ({ setcrud }) => {
               id="mother"
               type="text"
               onChange={(e) => setsearch2(e.target.value)}
-              placeholder="Numero de Placa"
+              defaultValue={dataBird?.mother_bird?.plate_number}
             />
             <div>
               <label>Seleccione la gallina</label>
@@ -295,10 +255,13 @@ const CreateBird = ({ setcrud }) => {
                 required
               >
                 <option
-                  value="0"
-                  style={{ backgroundColor: 'red', color: 'white' }}
+                  value={dataBird?.mother_bird?.id}
+                  selected
+                  disabled
+                  hidden
                 >
-                  No Tiene Madre
+                  {dataBird?.mother_bird?.plate_number}, placa:{' '}
+                  {dataBird?.mother_bird?.plate_color.color}
                 </option>
                 {mother?.map((bird) => (
                   <option key={bird.id} value={bird.id}>
@@ -314,6 +277,7 @@ const CreateBird = ({ setcrud }) => {
               {...register('birthdate')}
               id="birthdate"
               type="date"
+              defaultValue={dataBird?.bird.birthdate}
               required
             />
           </div>
@@ -325,7 +289,14 @@ const CreateBird = ({ setcrud }) => {
               {...register('bird_color')}
               required
             >
-              <option value={null}></option>
+              <option
+                value={JSON.stringify(dataBird?.bird?.bird_color)}
+                selected
+                disabled
+                hidden
+              >
+                {JSON.parse(dataBird?.bird.bird_color).name}
+              </option>
               {allColorsBird?.map((colorBird) => (
                 <option
                   key={colorBird.id}
@@ -345,8 +316,14 @@ const CreateBird = ({ setcrud }) => {
               {...register('crest_type')}
               required
             >
-              <option value={null}></option>
-
+              <option
+                value={dataBird?.bird.crest_type}
+                selected
+                disabled
+                hidden
+              >
+                {dataBird?.bird.crest_type}
+              </option>
               {allCrestTypes?.map((crestType) => (
                 <option key={crestType.id} value={crestType.name}>
                   {crestType.name}
@@ -357,7 +334,9 @@ const CreateBird = ({ setcrud }) => {
           <div className="crudForm__sectionOne__div">
             <label htmlFor="line">LINEA DEL AVE</label>
             <select name="line" id="line" {...register('line')} required>
-              <option value={null}></option>
+              <option value={dataBird?.bird.line} selected disabled hidden>
+                {dataBird?.bird.line}
+              </option>{' '}
               {allLines?.map((line) => (
                 <option key={line.id} value={line.name}>
                   {line.name}
@@ -372,13 +351,16 @@ const CreateBird = ({ setcrud }) => {
               name="weight"
               id="weight"
               type="text"
+              defaultValue={dataBird?.bird.weight}
               required
             />
           </div>
           <div className="crudForm__sectionOne__div">
             <label htmlFor="status">ESTADO DEL AVE</label>
             <select name="status" id="status" {...register('status')} required>
-              <option value={null}></option>
+              <option value={dataBird?.bird.status} selected disabled hidden>
+                {dataBird?.bird.status}
+              </option>{' '}
               {allStatus?.map((state) => (
                 <option key={state.id} value={state.name}>
                   {state.name}
@@ -389,8 +371,9 @@ const CreateBird = ({ setcrud }) => {
           <div className="crudForm__sectionOne__div">
             <label htmlFor="origin">PROCEDENCIA DEL AVE</label>
             <select name="origin" id="origin" {...register('origin')} required>
-              <option value={null}></option>
-
+              <option value={dataBird?.bird.origin} selected disabled hidden>
+                {dataBird?.bird.origin}
+              </option>{' '}
               {allOrigins?.map((origin) => (
                 <option key={origin.id} value={origin.name}>
                   {origin.name}
@@ -398,90 +381,7 @@ const CreateBird = ({ setcrud }) => {
               ))}
             </select>
           </div>
-          <div className="crudForm__fileInput">
-            <input
-              {...register('link_image')}
-              id="linkImg"
-              name="linkImg"
-              type="file"
-              multiple
-              accept="image/*"
-              onChange={handleFileChange}
-              required
-              style={{
-                opacity: 0,
-                position: 'absolute',
-                zIndex: -1,
-              }}
-            />
-            {selectedFiles?.length > 0 ? (
-              <article
-                className="crudForm__fileInput__article crudForm__fileInput__article2"
-                onClick={handleOnClickImg}
-              >
-                <img
-                  className="crudForm__fileInput__articleImg"
-                  src="./foto.png"
-                />
-                <p className="crudForm__fileInput__p">
-                  {selectedFiles?.length} imagenes Subidas
-                </p>
-              </article>
-            ) : (
-              <article
-                className="crudForm__fileInput__article"
-                onClick={handleOnClickImg}
-              >
-                <img
-                  className="crudForm__fileInput__articleImg"
-                  src="./foto.png"
-                />
-                <p className="crudForm__fileInput__button">CARGAR FOTOS</p>
-              </article>
-            )}
-          </div>
 
-          <div className="crudForm__fileInput">
-            <input
-              {...register('link_video')}
-              id="linkVideo"
-              name="linkVideo"
-              type="file"
-              multiple
-              accept="video/*"
-              onChange={handleFileVideoChange}
-              style={{
-                opacity: 0,
-                position: 'absolute',
-                zIndex: -1,
-              }}
-            />
-            {selectedVideos?.length > 0 ? (
-              <article
-                className="crudForm__fileInput__article crudForm__fileInput__article2"
-                onClick={handleOnClickVideo}
-              >
-                <img
-                  className="crudForm__fileInput__articleImg"
-                  src="./foto.png"
-                />
-                <p className="crudForm__fileInput__p">
-                  {selectedVideos?.length} videos subidos
-                </p>
-              </article>
-            ) : (
-              <article
-                className="crudForm__fileInput__article"
-                onClick={handleOnClickVideo}
-              >
-                <img
-                  className="crudForm__fileInput__articleImg"
-                  src="./foto.png"
-                />
-                <p className="crudForm__fileInput__button">SUBIR VIDEOS</p>
-              </article>
-            )}
-          </div>
           <div className="crudForm__sectionOne__div">
             <label htmlFor="observations">OBSERVACIONES</label>
             <textarea
@@ -489,19 +389,25 @@ const CreateBird = ({ setcrud }) => {
               id="observations"
               type="text"
               rows="5"
+              defaultValue={dataBird?.bird.observations}
               required
             />
           </div>
         </section>
-        <section className="crudForm__sectionButtons">
-          <button type="button" onClick={() => setcrud()}>
+        <section className="crudPopForm__sectionButtons">
+          <button
+            type="button"
+            onClick={() => {
+              setcrud(), reset();
+            }}
+          >
             CANCELAR
-          </button>{' '}
-          <button type="submit"> REGISTRAR</button>
+          </button>
+          <button type="submit">EDITAR</button>
         </section>
       </form>
     </div>
   );
 };
 
-export default CreateBird;
+export default UpdateBird;

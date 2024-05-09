@@ -54,17 +54,21 @@
   font-weight: 600;
 }
 
-.Graph__container {
+/* Home__sectionTwo */
+
+.Home__sectionTwo {
   width: 100%;
-  padding: 30px;
-  padding-top: 0;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: space-around;
+  padding: 30px 0;
+}
+
+.Graph__container {
+  width: 45%;
 }
 
 .Graph__container canvas {
   width: 100% !important;
-  height: 600px !important;
+  height: 500px !important;
   display: block;
 }

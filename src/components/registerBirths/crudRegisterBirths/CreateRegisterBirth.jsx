@@ -146,7 +146,7 @@ const CreateRegisterBirth = ({ setcrud }) => {
           <button type="button" onClick={() => setcrud()}>
             CANCELAR
           </button>{' '}
-          <button type="submit"> CREAR</button>
+          <button type="submit"> REGISTRAR</button>
         </section>
       </form>
     </div>
