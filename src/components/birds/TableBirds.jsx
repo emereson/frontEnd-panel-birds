@@ -98,6 +98,7 @@ const TableBirds = ({ search, crud }) => {
               <td>{bird.weight}</td>
               <td>
                 <p>
+                  {calcularEdad(bird.birthdate).años} años,{' '}
                   {calcularEdad(bird.birthdate).meses} meses y{' '}
                   {calcularEdad(bird.birthdate).dias} días
                 </p>

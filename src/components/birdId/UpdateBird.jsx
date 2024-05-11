@@ -149,7 +149,7 @@ const UpdateBird = ({ setcrud, dataBird }) => {
       });
   };
 
-  console.log(JSON.parse(dataBird?.bird.bird_color));
+  console.log(dataBird?.bird.bird_color);
   return (
     <div className="crudPop__container">
       {loading && <Loading />}
@@ -295,7 +295,7 @@ const UpdateBird = ({ setcrud, dataBird }) => {
                 disabled
                 hidden
               >
-                {JSON.parse(dataBird?.bird.bird_color).name}
+                {dataBird?.bird.bird_color.name}
               </option>
               {allColorsBird?.map((colorBird) => (
                 <option
@@ -382,6 +382,17 @@ const UpdateBird = ({ setcrud, dataBird }) => {
             </select>
           </div>
 
+          <div className="crudForm__sectionOne__div">
+            <label htmlFor="observations">OBSERVACIONES</label>
+            <textarea
+              {...register('observations')}
+              id="observations"
+              type="text"
+              rows="5"
+              defaultValue={dataBird?.bird.observations}
+              required
+            />
+          </div>
           <div className="crudForm__sectionOne__div">
             <label htmlFor="observations">OBSERVACIONES</label>
             <textarea

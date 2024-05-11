@@ -4,22 +4,22 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import config from '../../../utils/getToken';
 
-const UpdateVaccine = ({ setcrud }) => {
+const UpdateVaccine = ({ setcrud, selectVaccine }) => {
   const { register, handleSubmit, reset } = useForm();
 
   const submit = (data) => {
-    const url = `${import.meta.env.VITE_URL_API}/vaccine`;
+    const url = `${import.meta.env.VITE_URL_API}/vaccine/${selectVaccine?.id}`;
 
     axios
-      .post(url, data, config)
+      .patch(url, data, config)
       .then((res) => {
         setcrud('');
-        toast.success('La vacuna se registro correctamente');
+        toast.success('Los datos de la vacuna se editaron correctamente');
       })
       .catch((err) => {
         console.log(err);
         toast.error(
-          'Hubo un error al registrar la vacuna,  verifique bien los datos'
+          'Hubo un error al editar la vacuna,  verifique bien los datos'
         );
       });
     reset();
@@ -31,44 +31,31 @@ const UpdateVaccine = ({ setcrud }) => {
         <h2>INGRESE LOS DATOS DE LA VACUNA</h2>
         <section className="crudForm__sectionOne">
           <div className="crudForm__sectionOne__div">
-            <label htmlFor="search2">BUSCAR AVE</label>
-            <input
-              id="search2"
-              type="text"
-              placeholder="Numero de Placa"
-              onChange={(e) => setsearch(e.target.value)}
-            />
-
-            <div style={{ marginTop: '10px' }}>
-              <label htmlFor="bird_id">Seleccione el Ave</label>
-              <select name="bird_id" id="bird_id" {...register('bird_id')}>
-                {' '}
-                <option
-                  value="0"
-                  style={{ backgroundColor: 'red', color: 'white' }}
-                >
-                  Elija un ave
-                </option>
-                {allBirds?.map((bird) => (
-                  <option key={bird.id} value={bird.id}>
-                    {bird.plate_number}, placa: {bird.plate_color.color},
-                    {bird.id}
-                  </option>
-                ))}
-              </select>{' '}
-            </div>
-          </div>
-          <div className="crudForm__sectionOne__div">
             <label htmlFor="blister">AMPOLLA</label>
-            <input {...register('blister')} id="blister" type="text" />
+            <input
+              {...register('blister')}
+              id="blister"
+              type="text"
+              defaultValue={selectVaccine.blister}
+            />
           </div>
           <div className="crudForm__sectionOne__div">
             <label htmlFor="pill">PASTILLA</label>
-            <input {...register('pill')} id="pill" type="text" />
+            <input
+              {...register('pill')}
+              id="pill"
+              type="text"
+              defaultValue={selectVaccine.pill}
+            />
           </div>
           <div className="crudForm__sectionOne__div">
             <label htmlFor="drops">GOTAS</label>
-            <input {...register('drops')} id="drops" type="text" />
+            <input
+              {...register('drops')}
+              id="drops"
+              type="text"
+              defaultValue={selectVaccine.drops}
+            />
           </div>
           <div className="crudForm__sectionOne__div">
             <label htmlFor="internal_deworming">DESPARASITACION INTERNA</label>
@@ -76,6 +63,7 @@ const UpdateVaccine = ({ setcrud }) => {
               {...register('internal_deworming')}
               id="internal_deworming"
               type="text"
+              defaultValue={selectVaccine.internal_deworming}
             />
           </div>
           <div className="crudForm__sectionOne__div">
@@ -84,18 +72,34 @@ const UpdateVaccine = ({ setcrud }) => {
               {...register('external_deworming')}
               id="external_deworming"
               type="text"
+              defaultValue={selectVaccine.external_deworming}
             />
           </div>
           <div className="crudForm__sectionOne__div">
             <label htmlFor="date">FECHA</label>
-            <input {...register('date')} id="date" type="date" />
+            <input
+              {...register('date')}
+              id="date"
+              type="date"
+              defaultValue={selectVaccine.date}
+            />
+          </div>
+          <div className="crudForm__sectionOne__div">
+            <label htmlFor="observations">OBSERVACIONES</label>
+            <textarea
+              {...register('observations')}
+              id="observations"
+              type="text"
+              rows="5"
+              defaultValue={selectVaccine.observations}
+            />
           </div>
         </section>
         <section className="crudPopForm__sectionButtons">
           <button type="button" onClick={() => setcrud()}>
             CANCELAR
           </button>{' '}
-          <button type="submit">REGISTRAR</button>
+          <button type="submit">EDITAR</button>
         </section>
       </form>
     </div>

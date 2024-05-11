@@ -5,6 +5,8 @@ import config from '../utils/getToken';
 import CreateVaccine from '../components/vaccine/crudVaccine/CreateVaccine';
 import CreateRegisterBirth from '../components/registerBirths/crudRegisterBirths/CreateRegisterBirth';
 import TableRegisterBirth from '../components/registerBirths/TableRegisterBirth';
+import UpdateRegisterBirth from '../components/registerBirths/crudRegisterBirths/UpdateRegisterBirth';
+import DeleteBirth from '../components/registerBirths/crudRegisterBirths/DeleteBirth';
 
 const RegisterBirths = () => {
   const [crud, setcrud] = useState();
@@ -12,6 +14,7 @@ const RegisterBirths = () => {
   const [allBirths, setallBirths] = useState();
   const [birdId, setbirdId] = useState('');
   const [allBirds, setallBirds] = useState();
+  const [selectBirths, setselectBirths] = useState();
 
   useEffect(() => {
     const url = `${import.meta.env.VITE_URL_API}/birds?search=${search}`;
@@ -37,7 +40,7 @@ const RegisterBirths = () => {
       .catch((err) => {
         console.log(err);
       });
-  }, [birdId]);
+  }, [birdId, crud]);
 
   console.log(allBirths);
 
@@ -83,11 +86,22 @@ const RegisterBirths = () => {
         </form>
         <button onClick={() => setcrud('create')}>Agregar Nacimiento</button>
       </section>
-      {crud === 'create' && <CreateRegisterBirth setcrud={setcrud} />}
 
       <section className="page___sectionThree">
-        <TableRegisterBirth allBirths={allBirths} />
+        <TableRegisterBirth
+          allBirths={allBirths}
+          setcrud={setcrud}
+          setselectBirths={setselectBirths}
+        />
       </section>
+
+      {crud === 'create' && <CreateRegisterBirth setcrud={setcrud} />}
+      {crud === 'update' && (
+        <UpdateRegisterBirth setcrud={setcrud} selectBirths={selectBirths} />
+      )}
+      {crud === 'delete' && (
+        <DeleteBirth setcrud={setcrud} selectBirths={selectBirths} />
+      )}
     </div>
   );
 };

@@ -3,6 +3,8 @@ import axios from 'axios';
 import config from '../utils/getToken';
 import CreateRegistersBirdsFights from '../components/registersFights/crudRegistersFights/CreateRegistersBirdsFights';
 import TableRegistersFights from '../components/registersFights/TableRegistersFights';
+import UpdateBirdsFights from '../components/registersFights/crudRegistersFights/UpdateBirdsFights';
+import DeleteBirdsFight from '../components/registersFights/crudRegistersFights/DeleteBirdsFight';
 
 const RegisterFight = () => {
   const [crud, setcrud] = useState();
@@ -10,6 +12,7 @@ const RegisterFight = () => {
   const [search, setsearch] = useState('');
   const [allBirds, setallBirds] = useState();
   const [allFights, setallFights] = useState();
+  const [selectFight, setselectFight] = useState();
 
   useEffect(() => {
     const url = `${import.meta.env.VITE_URL_API}/birds?search=${search}`;
@@ -79,12 +82,22 @@ const RegisterFight = () => {
         </form>
         <button onClick={() => setcrud('Create')}>Registrar Pelea</button>
       </section>
-      {crud === 'Create' && <CreateRegistersBirdsFights setcrud={setcrud} />}
 
       <section className="page___sectionThree">
         <h2>Lista de las peleas del ave</h2>
-        <TableRegistersFights allFights={allFights} />
+        <TableRegistersFights
+          allFights={allFights}
+          setselectFight={setselectFight}
+          setcrud={setcrud}
+        />
       </section>
+      {crud === 'Create' && <CreateRegistersBirdsFights setcrud={setcrud} />}
+      {crud === 'update' && (
+        <UpdateBirdsFights setcrud={setcrud} selectFight={selectFight} />
+      )}
+      {crud === 'delete' && (
+        <DeleteBirdsFight setcrud={setcrud} selectFight={selectFight} />
+      )}
     </div>
   );
 };

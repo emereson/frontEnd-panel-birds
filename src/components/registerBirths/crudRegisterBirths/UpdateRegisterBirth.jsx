@@ -4,12 +4,12 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import config from '../../../utils/getToken';
 
-const CreateRegisterBirth = ({ setcrud }) => {
+const UpdateRegisterBirth = ({ setcrud, selectBirths }) => {
   const { register, handleSubmit, reset } = useForm();
-  const [father, setfather] = useState();
   const [search, setsearch] = useState('');
   const [search2, setsearch2] = useState('');
   const [mother, setmother] = useState();
+  const [father, setfather] = useState();
 
   useEffect(() => {
     const url = `${
@@ -40,26 +40,27 @@ const CreateRegisterBirth = ({ setcrud }) => {
   }, [search]);
 
   const submit = (data) => {
-    const url = `${import.meta.env.VITE_URL_API}/births`;
+    const url = `${import.meta.env.VITE_URL_API}/births/${selectBirths.id}`;
 
     axios
-      .post(url, data, config)
+      .patch(url, data, config)
       .then((res) => {
         setcrud('');
-        toast.success('el  registro de nacimiento se creo  correctamente');
+        toast.success('el  registro de nacimiento se edito  correctamente');
         reset();
       })
       .catch((err) => {
         console.log(err);
         toast.error(
-          'Hubo un error al crear el registro de nacimiento,  verifique bien los datos'
+          'Hubo un error al editar el registro de nacimiento,  verifique bien los datos'
         );
       });
   };
+
   return (
     <div className="crudPop__container">
       <form className="crudPop__formContainer" onSubmit={handleSubmit(submit)}>
-        <h2>INGRESE LOS DATOS DEL NACIMIENTO</h2>
+        <h2>EDITAR LOS DATOS DEL NACIMIENTO</h2>
         <section className="crudForm__sectionOne">
           <div className="crudForm__sectionOne__div">
             <label htmlFor="search2">Ave madre *</label>
@@ -67,6 +68,7 @@ const CreateRegisterBirth = ({ setcrud }) => {
               id="search2"
               type="text"
               placeholder="Numero de Placa"
+              defaultValue={selectBirths?.mother.plate_number}
               onChange={(e) => setsearch2(e.target.value)}
             />
 
@@ -78,17 +80,18 @@ const CreateRegisterBirth = ({ setcrud }) => {
                 {...register('mother_id')}
                 required
               >
-                {' '}
                 <option
-                  value="0"
-                  style={{ backgroundColor: 'red', color: 'white' }}
+                  value={selectBirths?.mother.id}
+                  selected
+                  disabled
+                  hidden
                 >
-                  Elija un ave
+                  {selectBirths?.mother.plate_number}, placa:{' '}
+                  {selectBirths?.mother.plate_color.color},
                 </option>
                 {mother?.map((bird) => (
                   <option key={bird.id} value={bird.id}>
                     {bird.plate_number}, placa: {bird.plate_color.color},
-                    {bird.id}
                   </option>
                 ))}
               </select>{' '}
@@ -100,6 +103,7 @@ const CreateRegisterBirth = ({ setcrud }) => {
               id="search"
               type="text"
               placeholder="Numero de Placa"
+              defaultValue={selectBirths?.father.plate_number}
               onChange={(e) => setsearch(e.target.value)}
             />
 
@@ -111,12 +115,14 @@ const CreateRegisterBirth = ({ setcrud }) => {
                 {...register('father_id')}
                 required
               >
-                {' '}
                 <option
-                  value="0"
-                  style={{ backgroundColor: 'red', color: 'white' }}
+                  value={selectBirths?.father.id}
+                  selected
+                  disabled
+                  hidden
                 >
-                  Elija un ave
+                  {selectBirths?.father.plate_number}, placa:{' '}
+                  {selectBirths?.father.plate_color.color},
                 </option>
                 {father?.map((bird) => (
                   <option key={bird.id} value={bird.id}>
@@ -133,7 +139,7 @@ const CreateRegisterBirth = ({ setcrud }) => {
               {...register('number_eggs')}
               id="number_eggs"
               type="text"
-              required
+              defaultValue={selectBirths?.number_eggs}
             />
           </div>
           <div className="crudForm__sectionOne__div">
@@ -142,7 +148,7 @@ const CreateRegisterBirth = ({ setcrud }) => {
               {...register('number_births')}
               id="number_births"
               type="text"
-              required
+              defaultValue={selectBirths?.number_births}
             />
           </div>
           <div className="crudForm__sectionOne__div">
@@ -151,7 +157,7 @@ const CreateRegisterBirth = ({ setcrud }) => {
               {...register('date_eggs')}
               id="date_eggs"
               type="date"
-              required
+              defaultValue={selectBirths?.date_eggs}
             />
           </div>
         </section>
@@ -159,11 +165,11 @@ const CreateRegisterBirth = ({ setcrud }) => {
           <button type="button" onClick={() => setcrud()}>
             CANCELAR
           </button>{' '}
-          <button type="submit"> REGISTRAR</button>
+          <button type="submit">EDITAR</button>
         </section>
       </form>
     </div>
   );
 };
 
-export default CreateRegisterBirth;
+export default UpdateRegisterBirth;

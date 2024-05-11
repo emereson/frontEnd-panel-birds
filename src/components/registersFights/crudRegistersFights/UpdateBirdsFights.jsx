@@ -4,37 +4,23 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import config from '../../../utils/getToken';
 
-const CreateRegistersBirdsFights = ({ setcrud }) => {
+const UpdateBirdsFights = ({ setcrud, selectFight }) => {
   const { register, handleSubmit, reset } = useForm();
-  const [search, setsearch] = useState('');
-  const [allBirds, setallBirds] = useState();
-
-  useEffect(() => {
-    const url = `${import.meta.env.VITE_URL_API}/birds?search=${search}`;
-
-    axios
-      .get(url, config)
-      .then((res) => {
-        setallBirds(res.data.birds);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [search]);
 
   const submit = (data) => {
-    const url = `${import.meta.env.VITE_URL_API}/bird-fight`;
+    const url = `${import.meta.env.VITE_URL_API}/bird-fight/${selectFight.id}`;
 
     axios
-      .post(url, data, config)
+      .patch(url, data, config)
       .then((res) => {
+        console.log(res);
         setcrud('');
-        toast.success('La pelea se a registro correctamente');
+        toast.success('La pelea se a editado correctamente');
       })
       .catch((err) => {
         console.log(err);
         toast.error(
-          'Hubo un error al registrar la pelea,  verifique bien los datos'
+          'Hubo un error al editado la pelea,  verifique bien los datos'
         );
       });
     reset();
@@ -43,43 +29,15 @@ const CreateRegistersBirdsFights = ({ setcrud }) => {
   return (
     <div className="crudPop__container">
       <form className="crudPop__formContainer" onSubmit={handleSubmit(submit)}>
-        <h2>INGRESE LOS DATOS DE LA PELEA</h2>
+        <h2>EDITAR DATOS DE LA PELEA</h2>
         <section className="crudForm__sectionOne">
-          <div className="crudForm__sectionOne__div">
-            <label htmlFor="search2">BUSCAR AVE</label>
-            <input
-              id="search2"
-              type="text"
-              placeholder="Numero de Placa"
-              onChange={(e) => setsearch(e.target.value)}
-            />
-
-            <div style={{ marginTop: '10px' }}>
-              <label htmlFor="bird_id">Seleccione el Ave</label>
-              <select name="bird_id" id="bird_id" {...register('bird_id')}>
-                {' '}
-                <option
-                  value="0"
-                  style={{ backgroundColor: 'red', color: 'white' }}
-                >
-                  Elija un ave
-                </option>
-                {allBirds?.map((bird) => (
-                  <option key={bird.id} value={bird.id}>
-                    {bird.plate_number}, placa: {bird.plate_color.color},
-                    {bird.id}
-                  </option>
-                ))}
-              </select>{' '}
-            </div>
-          </div>
           <div className="crudForm__sectionOne__div">
             <label htmlFor="number_fight">Numero de pelea *</label>
             <input
               {...register('number_fight')}
               id="number_fight"
               type="text"
-              required
+              defaultValue={selectFight.number_fight}
             />
           </div>
           <div className="crudForm__sectionOne__div">
@@ -88,7 +46,7 @@ const CreateRegistersBirdsFights = ({ setcrud }) => {
               {...register('coliseum')}
               id="coliseum"
               type="text"
-              required
+              defaultValue={selectFight.coliseum}
             />
           </div>
           <div className="crudForm__sectionOne__div">
@@ -97,12 +55,17 @@ const CreateRegistersBirdsFights = ({ setcrud }) => {
               {...register('opponent')}
               id="opponent"
               type="text"
-              required
+              defaultValue={selectFight.opponent}
             />
           </div>
           <div className="crudForm__sectionOne__div">
             <label htmlFor="weight">Peso *</label>
-            <input {...register('weight')} id="weight" type="text" required />
+            <input
+              {...register('weight')}
+              id="weight"
+              type="text"
+              defaultValue={selectFight.weight}
+            />
           </div>
           <div className="crudForm__sectionOne__div">
             <label htmlFor="date_fight">Fecha de la pelea *</label>
@@ -110,17 +73,24 @@ const CreateRegistersBirdsFights = ({ setcrud }) => {
               {...register('date_fight')}
               id="date_fight"
               type="date"
-              required
+              defaultValue={selectFight.date_fight}
             />
           </div>
           <div className="crudForm__sectionOne__div">
             <label htmlFor="minutes">Tiempo que duro la pelea</label>
-            <input {...register('minutes')} id="minutes" type="text" required />
+            <input
+              {...register('minutes')}
+              id="minutes"
+              type="text"
+              defaultValue={selectFight.minutes}
+            />
           </div>
           <div className="crudForm__sectionOne__div">
             <label htmlFor="state">Resultado de la pelea</label>
             <select name="state" id="state" {...register('state')} required>
-              <option value="0"></option>
+              <option value={selectFight?.state} selected disabled hidden>
+                {selectFight?.state}
+              </option>{' '}
               <option value="Ganado">Ganado</option>
               <option value="Perdido">Perdido</option>
               <option value="Empate">Empate</option>
@@ -133,18 +103,25 @@ const CreateRegistersBirdsFights = ({ setcrud }) => {
               id="observations"
               type="text"
               rows="5"
+              defaultValue={selectFight.observations}
             />
           </div>
         </section>
         <section className="crudPopForm__sectionButtons">
-          <button type="button" onClick={() => setcrud()}>
+          <button
+            type="button"
+            onClick={() => {
+              setcrud();
+              reset();
+            }}
+          >
             CANCELAR
           </button>{' '}
-          <button type="submit">REGISTRAR</button>
+          <button type="submit">EDITAR</button>
         </section>
       </form>
     </div>
   );
 };
 
-export default CreateRegistersBirdsFights;
+export default UpdateBirdsFights;

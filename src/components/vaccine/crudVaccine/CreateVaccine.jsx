@@ -25,9 +25,12 @@ const CreateVaccine = ({ setcrud }) => {
   const submit = (data) => {
     const url = `${import.meta.env.VITE_URL_API}/vaccine`;
 
+    console.log(data);
+
     axios
       .post(url, data, config)
       .then((res) => {
+        console.log(res);
         setcrud('');
         toast.success('La vacuna se registro correctamente');
       })
@@ -37,7 +40,7 @@ const CreateVaccine = ({ setcrud }) => {
           'Hubo un error al registrar la vacuna,  verifique bien los datos'
         );
       });
-    reset();
+    // reset();
   };
   return (
     <div className="crudPop__container">
@@ -102,7 +105,16 @@ const CreateVaccine = ({ setcrud }) => {
           </div>
           <div className="crudForm__sectionOne__div">
             <label htmlFor="date">FECHA</label>
-            <input {...register('date')} id="date" type="date" />
+            <input {...register('date')} id="date" type="date" required />
+          </div>
+          <div className="crudForm__sectionOne__div">
+            <label htmlFor="observations">OBSERVACIONES</label>
+            <textarea
+              {...register('observations')}
+              id="observations"
+              type="text"
+              rows="5"
+            />
           </div>
         </section>
         <section className="crudPopForm__sectionButtons">

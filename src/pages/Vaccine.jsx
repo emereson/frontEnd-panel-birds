@@ -3,6 +3,8 @@ import TableVaccine from '../components/vaccine/TableVaccine';
 import axios from 'axios';
 import config from '../utils/getToken';
 import CreateVaccine from '../components/vaccine/crudVaccine/CreateVaccine';
+import UpdateVaccine from '../components/vaccine/crudVaccine/UpdateVaccine';
+import DeleteVaccine from '../components/vaccine/crudVaccine/DeleteVaccine';
 
 const Vaccine = () => {
   const [crud, setcrud] = useState();
@@ -10,6 +12,7 @@ const Vaccine = () => {
   const [search, setsearch] = useState('');
   const [allBirds, setallBirds] = useState();
   const [allvacines, setallvacines] = useState();
+  const [selectVaccine, setselectVaccine] = useState();
 
   useEffect(() => {
     const url = `${import.meta.env.VITE_URL_API}/birds?search=${search}`;
@@ -79,11 +82,21 @@ const Vaccine = () => {
         </form>
         <button onClick={() => setcrud('CreateVaccine')}>Agregar Vacuna</button>
       </section>
-      {crud === 'CreateVaccine' && <CreateVaccine setcrud={setcrud} />}
 
       <section className="page___sectionThree">
-        <TableVaccine allvacines={allvacines} />
+        <TableVaccine
+          allvacines={allvacines}
+          setselectVaccine={setselectVaccine}
+          setcrud={setcrud}
+        />
       </section>
+      {crud === 'CreateVaccine' && <CreateVaccine setcrud={setcrud} />}
+      {crud === 'update' && (
+        <UpdateVaccine setcrud={setcrud} selectVaccine={selectVaccine} />
+      )}
+      {crud === 'delete' && (
+        <DeleteVaccine setcrud={setcrud} selectVaccine={selectVaccine} />
+      )}
     </div>
   );
 };
