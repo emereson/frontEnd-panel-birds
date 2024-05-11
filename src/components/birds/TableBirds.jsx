@@ -52,14 +52,18 @@ const TableBirds = ({ search, crud }) => {
     const fechaNacimientoObj = new Date(fechaNacimiento);
     const fechaActual = new Date();
 
-    const diff = fechaActual - fechaNacimientoObj; // Diferencia en milisegundos
-    const diffDate = new Date(diff); // Convertir la diferencia a un objeto de fecha
+    // Calcular la diferencia entre las fechas en milisegundos
+    const diff = fechaActual - fechaNacimientoObj;
 
-    // Extraer meses y días de la diferencia
-    const meses = diffDate.getMonth();
-    const dias = diffDate.getDate() - 1; // Restar 1 porque getDate() devuelve el día del mes
+    // Convertir la diferencia a un objeto de fecha
+    const diffDate = new Date(diff);
 
-    return { meses, dias };
+    // Extraer años, meses y días de la diferencia
+    const años = diffDate.getUTCFullYear() - 1970; // 1970 es el año base en JavaScript
+    const meses = diffDate.getUTCMonth();
+    const dias = diffDate.getUTCDate() - 1; // Restar 1 porque getDate() devuelve el día del mes
+
+    return { años, meses, dias };
   }
 
   return (
