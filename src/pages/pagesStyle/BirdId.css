@@ -25,12 +25,12 @@
   align-items: center;
   color: var(--body-white);
   gap: 20px;
-  font-size: 25px;
+  font-size: 20px;
   cursor: pointer;
 }
 
 .BirdId__sectionOne_navigate i {
-  font-size: 35px;
+  font-size: 25px;
 }
 
 .BirdId__sectionOne__buttonsContainer {
@@ -38,10 +38,10 @@
   gap: 20px;
 }
 .BirdId__sectionOne__buttonsContainer button {
-  font-size: 18px;
+  font-size: 15px;
   font-weight: 600;
-  width: 200px;
-  height: 50px;
+  width: 130px;
+  height: 40px;
   padding: 0 15px;
   border: 2px solid var(--body-white);
   background-color: var(--body-white);
@@ -63,7 +63,7 @@
 
 .BirdId__sectionTwo h1 {
   color: var(--text-color-gray);
-  font-size: 30px;
+  font-size: 25px;
 }
 
 .BirdId__sectionTwo ul {
@@ -74,8 +74,8 @@
 }
 
 .BirdId__sectionTwo li {
-  width: 350px;
-  font-size: 18px;
+  width: 300px;
+  font-size: 15px;
   font-weight: 600;
   gap: 10px;
   color: var(--text-color-gray);
@@ -154,10 +154,10 @@
 }
 
 .BirdId__sectionFour_article button {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
-  width: 200px;
-  height: 50px;
+  width: 150px;
+  height: 40px;
   padding: 0 15px;
   background-color: var(--body-white);
   border: 2px solid var(--body-darkBlue);
@@ -192,7 +192,7 @@
   height: 40px;
   background-color: var(--body-red);
   color: var(--text-color-white);
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 600;
   border-radius: 10px;
   cursor: pointer;
@@ -203,4 +203,21 @@
   height: 200px;
   cursor: pointer;
   object-fit: cover;
+}
+
+@media (max-width: 900px) {
+  .BirdId__sectionOne {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 20px;
+
+    padding-top: 100px;
+  }
+
+  .BirdId__sectionFour_article {
+    flex-direction: column;
+    align-items: start;
+    gap: 15px;
+  }
 }

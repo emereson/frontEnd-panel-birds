@@ -33,7 +33,7 @@ const TableVaccine = ({ allvacines, setselectVaccine, setcrud }) => {
   const currentBirds = allvacines?.vaccine?.slice(startIndex, endIndex);
 
   return (
-    <div>
+    <div className="TableBirds_container">
       <table className="table__container">
         <thead>
           <tr>

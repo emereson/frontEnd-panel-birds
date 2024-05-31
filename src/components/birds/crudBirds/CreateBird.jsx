@@ -167,15 +167,8 @@ const CreateBird = ({ setcrud }) => {
           toast.success('El ave se registró correctamente');
         })
         .catch((err) => {
-          console.log(err);
-          setcrud('');
-          setSelectedFiles([]);
-          setSelectedVideos([]);
           setLoading(false);
-          reset();
-          toast.error(
-            'Hubo un error al crear el ave, por favor verifique bien los datos'
-          );
+          toast.error(err.response.data.message);
         });
     }
   };

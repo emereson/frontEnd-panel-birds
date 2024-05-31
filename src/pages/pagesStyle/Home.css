@@ -15,10 +15,12 @@
 .Home__sectionOne {
   width: 100%;
   display: flex;
-  gap: 5%;
+  flex-wrap: wrap;
+  gap: 20px;
 }
 
 .Home__sectionOne div {
+  min-width: 300px;
   width: 300px;
   height: 200px;
   display: flex;
@@ -59,16 +61,33 @@
 .Home__sectionTwo {
   width: 100%;
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-around;
   padding: 30px 0;
 }
 
 .Graph__container {
   width: 45%;
+  max-width: 500px;
 }
 
 .Graph__container canvas {
   width: 100% !important;
-  height: 500px !important;
+  height: auto !important;
   display: block;
+}
+
+@media (max-width: 1000px) {
+  .Home__container {
+    padding-top: 100px;
+  }
+
+  .Home__sectionOne {
+    align-items: center;
+    justify-content: center;
+  }
+
+  .Graph__container {
+    width: 100%;
+  }
 }

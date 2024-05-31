@@ -10,6 +10,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 20px;
 }
 
 /* crud__formContainer */
@@ -98,4 +99,17 @@
 .crudPopForm__sectionButtons button:hover {
   background-color: var(--body-darkBlue);
   color: var(--text-color-white);
+}
+
+@media (max-width: 1000px) {
+  .crudPop__container {
+    align-items: start;
+    justify-content: start;
+    overflow-y: auto;
+    padding-top: 100px;
+  }
+
+  .crudPop__formContainer {
+    width: 100%;
+  }
 }
