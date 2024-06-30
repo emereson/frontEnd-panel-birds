@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import config from '../../../utils/getToken';
 import CreateOrigin from './CreateOrigin';
 import UpdateOrigin from './UpdateOrigin';
+import DeleteOrigin from './DeleteOrigin';
 
 const CardOrigin = () => {
   const [selectItem, setselectItem] = useState();
@@ -42,7 +43,11 @@ const CardOrigin = () => {
               >
                 <i className="bx bxs-edit-alt"></i>
               </button>
-              <button>
+              <button
+                onClick={() => {
+                  setCrud('delete'), setselectItem(origin);
+                }}
+              >
                 <i className="bx bxs-trash-alt"></i>
               </button>
             </li>
@@ -52,6 +57,9 @@ const CardOrigin = () => {
       {crud === 'createOrigin' && <CreateOrigin setCrud={setCrud} />}
       {crud === 'update' && (
         <UpdateOrigin setCrud={setCrud} selectItem={selectItem} />
+      )}
+      {crud === 'delete' && (
+        <DeleteOrigin setCrud={setCrud} selectItem={selectItem} />
       )}
     </section>
   );

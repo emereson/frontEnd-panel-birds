@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import config from '../../../utils/getToken';
 import CreatePlateColor from './CreatePlateColor';
 import UpdatePlateColor from './UpdatePlateColor';
+import DeletePlateColor from './DeletePlateColor';
 
 const CardPlateColor = () => {
   const [crud, setCrud] = useState('');
@@ -46,7 +47,11 @@ const CardPlateColor = () => {
               >
                 <i className="bx bxs-edit-alt"></i>
               </button>
-              <button>
+              <button
+                onClick={() => {
+                  setCrud('delete'), setselectItem(plateColor);
+                }}
+              >
                 <i className="bx bxs-trash-alt"></i>
               </button>
             </li>
@@ -56,6 +61,9 @@ const CardPlateColor = () => {
       {crud === 'createPlateColor' && <CreatePlateColor setCrud={setCrud} />}
       {crud === 'update' && (
         <UpdatePlateColor setCrud={setCrud} selectItem={selectItem} />
+      )}
+      {crud === 'delete' && (
+        <DeletePlateColor setCrud={setCrud} selectItem={selectItem} />
       )}
     </section>
   );

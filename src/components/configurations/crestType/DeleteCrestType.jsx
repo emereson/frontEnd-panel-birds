@@ -1,31 +1,32 @@
 import axios from 'axios';
 import React from 'react';
 import { toast } from 'react-toastify';
-import config from '../../utils/getToken';
+import config from '../../../utils/getToken';
 
-const DeleteUser = ({ setcrud, selectUser }) => {
+const DeleteCrestType = ({ setCrud, selectItem }) => {
   const handleDelete = () => {
-    const url = `${import.meta.env.VITE_URL_API}/user/${selectUser.id}`;
+    const url = `${import.meta.env.VITE_URL_API}/crest-type/${selectItem.id}`;
 
     axios
       .delete(url, config)
       .then((res) => {
-        setcrud('');
-        toast.success('El usuario se eliminó correctamente');
+        console.log(res);
+        setCrud('');
+        toast.success('Se eliminó correctamente');
       })
       .catch((err) => {
-        setcrud('');
-        toast.error('Hubo un error al eliminar el usuario');
+        setCrud('');
+        toast.error('Hubo un error al eliminar');
       });
   };
 
   return (
     <div className="crudPop__container">
       <div className="crudPop__formContainer">
-        <h2>¿Está seguro que quiere al usuario {selectUser.name}?</h2>
+        <h2>¿Está seguro que quiere eliminarlo?</h2>
 
         <section className="crudPopForm__sectionButtons">
-          <button type="button" onClick={() => setcrud()}>
+          <button type="button" onClick={() => setCrud()}>
             Cancelar
           </button>
           <button type="button" onClick={handleDelete}>
@@ -37,4 +38,4 @@ const DeleteUser = ({ setcrud, selectUser }) => {
   );
 };
 
-export default DeleteUser;
+export default DeleteCrestType;

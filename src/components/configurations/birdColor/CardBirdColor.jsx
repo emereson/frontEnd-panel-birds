@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import config from '../../../utils/getToken';
 import CreateBirdColor from './CreateBirdColor';
 import UpdateBirdColor from './UpdateBirdColor';
+import DeleteBirdColor from './DeleteBirdColor';
 
 const CardBirdColor = () => {
   const [crud, setCrud] = useState('');
@@ -47,7 +48,11 @@ const CardBirdColor = () => {
               >
                 <i className="bx bxs-edit-alt"></i>
               </button>
-              <button>
+              <button
+                onClick={() => {
+                  setCrud('delete'), setselectItem(color);
+                }}
+              >
                 <i className="bx bxs-trash-alt"></i>
               </button>
             </li>
@@ -57,6 +62,9 @@ const CardBirdColor = () => {
       {crud === 'createBirdColor' && <CreateBirdColor setCrud={setCrud} />}
       {crud === 'updateBirdColor' && (
         <UpdateBirdColor setCrud={setCrud} selectItem={selectItem} />
+      )}
+      {crud === 'delete' && (
+        <DeleteBirdColor setCrud={setCrud} selectItem={selectItem} />
       )}
     </section>
   );

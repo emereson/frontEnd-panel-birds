@@ -17,16 +17,20 @@ const RegisterBirths = () => {
   const [selectBirths, setselectBirths] = useState();
 
   useEffect(() => {
-    const url = `${import.meta.env.VITE_URL_API}/birds?search=${search}`;
+    if (search.length > 0) {
+      const url = `${import.meta.env.VITE_URL_API}/birds?search=${search}`;
 
-    axios
-      .get(url, config)
-      .then((res) => {
-        setallBirds(res.data.birds);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+      axios
+        .get(url, config)
+        .then((res) => {
+          setallBirds(res.data.birds);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      setallBirds();
+    }
   }, [search]);
 
   useEffect(() => {

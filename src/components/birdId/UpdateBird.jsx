@@ -393,17 +393,6 @@ const UpdateBird = ({ setcrud, dataBird }) => {
               required
             />
           </div>
-          <div className="crudForm__sectionOne__div">
-            <label htmlFor="observations">OBSERVACIONES</label>
-            <textarea
-              {...register('observations')}
-              id="observations"
-              type="text"
-              rows="5"
-              defaultValue={dataBird?.bird.observations}
-              required
-            />
-          </div>
         </section>
         <section className="crudPopForm__sectionButtons">
           <button

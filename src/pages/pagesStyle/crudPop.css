@@ -19,14 +19,17 @@
   background-color: var(--body-white);
   width: auto;
   max-width: 870px;
+  max-height: 85%;
   padding: 16px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
   gap: 25px;
   box-shadow: 0px 3px 10px 2px var(--body-darkBlue);
   border-radius: 10px;
+  overflow: hidden;
+  overflow-y: auto;
 }
 
 .crudPop__formContainer h2 {

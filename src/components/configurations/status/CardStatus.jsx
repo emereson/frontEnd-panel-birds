@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import config from '../../../utils/getToken';
 import CreateStatus from './CreateStatus';
 import UpdateStatus from './UpdateStatus';
+import DeleteStatus from './DeleteStatus';
 
 const CardStatus = () => {
   const [crud, setCrud] = useState('');
@@ -40,7 +41,11 @@ const CardStatus = () => {
               >
                 <i class="bx bxs-edit-alt"></i>
               </button>
-              <button>
+              <button
+                onClick={() => {
+                  setCrud('delete'), setselectItem(state);
+                }}
+              >
                 <i class="bx bxs-trash-alt"></i>
               </button>
             </li>
@@ -50,6 +55,9 @@ const CardStatus = () => {
       {crud === 'createStatus' && <CreateStatus setCrud={setCrud} />}
       {crud === 'update' && (
         <UpdateStatus setCrud={setCrud} selectItem={selectItem} />
+      )}
+      {crud === 'delete' && (
+        <DeleteStatus setCrud={setCrud} selectItem={selectItem} />
       )}
     </section>
   );
